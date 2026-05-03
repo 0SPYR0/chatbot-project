@@ -1,0 +1,79 @@
+{
+  "rules": [
+    {
+      "name": "greeting",
+      "priority": 100,
+      "patterns": [
+        "\\bhi\\b",
+        "\\bhello\\b",
+        "\\bhey\\b",
+        "\\bgood (morning|afternoon|evening)\\b"
+      ],
+      "responses": [
+        "Hello! How can I help you today?",
+        "Hi there! What can I do for you?"
+      ]
+    },
+    {
+      "name": "ask_name",
+      "priority": 90,
+      "patterns": [
+        "\\bwhat(?:'s| is) your name\\b",
+        "\\bwho are you\\b"
+      ],
+      "responses": [
+        "I am RuleBot, a simple rule-based chatbot.",
+        "They call me RuleBot. I follow rules, not feelings."
+      ]
+    },
+    {
+      "name": "how_are_you",
+      "priority": 80,
+      "patterns": [
+        "\\bhow are you\\b",
+        "\\bhow's it going\\b"
+      ],
+      "responses": [
+        "I am a bot. I do not have feelings, but I am functioning as expected.",
+        "Running smoothly. Thanks for asking."
+      ]
+    },
+    {
+      "name": "college_info",
+      "priority": 70,
+      "patterns": [
+        "\\bholkar\\b",
+        "\\bindore\\b",
+        "\\bgovernment holkar\\b",
+        "\\bwhere is your college\\b"
+      ],
+      "responses": [
+        "Government Holkar Science College is in Indore.",
+        "You mentioned Holkar — nice. It's in Indore."
+      ]
+    },
+    {
+      "name": "thanks",
+      "priority": 50,
+      "patterns": [
+        "\\bthank(s| you)\\b",
+        "\\bthx\\b"
+      ],
+      "responses": [
+        "You're welcome.",
+        "No problem."
+      ]
+    },
+    {
+      "name": "fallback",
+      "priority": 0,
+      "patterns": [
+        ".*"
+      ],
+      "responses": [
+        "Sorry, I did not understand. Can you rephrase?",
+        "I am not sure about that. Could you try different words?"
+      ]
+    }
+  ]
+}
