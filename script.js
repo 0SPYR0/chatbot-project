@@ -1,14 +1,32 @@
-let rules = [];
-let rulesLoaded = false;
+function sendMessage() {
+  // 🔥 FIRST: check if rules are loaded
+  if (!rulesLoaded) {
+    alert("Bot is still loading...");
+    return;
+  }
 
-async function loadRules() {
-  const res = await fetch("rules.json");
-  const data = await res.json();
+  let inputField = document.getElementById("userInput");
+  let message = inputField.value;
 
-  rules = data.rules.map(rule => ({
-    ...rule,
-    compiledPatterns: rule.patterns.map(p => new RegExp(p, "i"))
-  })).sort((a, b) => b.priority - a.priority);
+  if (message.trim() === "") return;
 
-  rulesLoaded = true;
+  let chatBox = document.getElementById("chatBox");
+
+  // user message
+  let userMsg = document.createElement("div");
+  userMsg.className = "user-msg";
+  userMsg.innerText = message;
+  chatBox.appendChild(userMsg);
+
+  // bot response (with delay if you added it)
+  setTimeout(() => {
+    let botMsg = document.createElement("div");
+    botMsg.className = "bot-msg";
+    botMsg.innerText = getResponse(message);
+    chatBox.appendChild(botMsg);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 500);
+
+  inputField.value = "";
 }
