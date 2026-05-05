@@ -1,3 +1,21 @@
+function getResponse(input) {
+  input = input.toLowerCase();
+
+  if (input.includes("hello") || input.includes("hi")) {
+    return "Hello! 👋";
+  }
+
+  if (input.includes("how are you")) {
+    return "I'm just code, but I'm doing great 😄";
+  }
+
+  if (input.includes("bye")) {
+    return "Goodbye! 👋";
+  }
+
+  return "Sorry, I didn't understand.";
+}
+
 function sendMessage() {
   let input = document.getElementById("userInput");
   let message = input.value;
@@ -9,14 +27,11 @@ function sendMessage() {
   let userMsg = document.createElement("div");
   userMsg.className = "user-msg";
   userMsg.innerText = message;
-
   chatBox.appendChild(userMsg);
 
-  // fake bot reply
   let botMsg = document.createElement("div");
   botMsg.className = "bot-msg";
-  botMsg.innerText = "I'm just a basic bot 😅";
-
+  botMsg.innerText = getResponse(message);
   chatBox.appendChild(botMsg);
 
   input.value = "";
