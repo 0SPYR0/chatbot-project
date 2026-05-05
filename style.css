@@ -5,7 +5,8 @@ body {
 }
 
 .chat-container {
-  width: 350px;
+  width: 90%;
+  max-width: 400px;
   height: 500px;
   margin: 50px auto;
   background: white;
@@ -27,23 +28,25 @@ body {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.bot-msg, .user-msg {
+  max-width: 70%;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+  word-wrap: break-word;
 }
 
 .bot-msg {
   background: #eee;
-  padding: 8px;
-  margin: 5px;
-  border-radius: 5px;
-  width: fit-content;
 }
 
 .user-msg {
   background: #4CAF50;
   color: white;
-  padding: 8px;
-  margin: 5px;
-  border-radius: 5px;
-  width: fit-content;
   margin-left: auto;
 }
 
