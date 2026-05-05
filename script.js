@@ -1,10 +1,4 @@
 function sendMessage() {
-  // 🔥 FIRST: check if rules are loaded
-  if (!rulesLoaded) {
-    alert("Bot is still loading...");
-    return;
-  }
-
   let inputField = document.getElementById("userInput");
   let message = inputField.value;
 
@@ -18,15 +12,23 @@ function sendMessage() {
   userMsg.innerText = message;
   chatBox.appendChild(userMsg);
 
-  // bot response (with delay if you added it)
-  setTimeout(() => {
+  inputField.value = "";
+
+  // 🔥 CALL BACKEND
+  fetch("http://127.0.0.1:5000/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: message })
+  })
+  .then(res => res.json())
+  .then(data => {
     let botMsg = document.createElement("div");
     botMsg.className = "bot-msg";
-    botMsg.innerText = getResponse(message);
+    botMsg.innerText = data.reply;
     chatBox.appendChild(botMsg);
 
     chatBox.scrollTop = chatBox.scrollHeight;
-  }, 500);
-
-  inputField.value = "";
+  });
 }
