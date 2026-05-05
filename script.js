@@ -3,45 +3,55 @@ let rules = [];
 async function loadRules() {
   const res = await fetch("rules.json");
   const data = await res.json();
-  rules = data.rules;
+
+  // sort by priority (high → low)
+  rules = data.rules.sort((a, b) => b.priority - a.priority);
+}
+
+function preprocess(text) {
+  return text.toLowerCase().trim();
 }
 
 function getResponse(input) {
-  input = input.toLowerCase();
+  input = preprocess(input);
 
   for (let rule of rules) {
     for (let pattern of rule.patterns) {
-      if (input.includes(pattern.toLowerCase())) {
-        return rule.responses[
-          Math.floor(Math.random() * rule.responses.length)
-        ];
+      let regex = new RegExp(pattern, "i");
+
+      if (regex.test(input)) {
+        let responses = rule.responses;
+        return responses[Math.floor(Math.random() * responses.length)];
       }
     }
   }
 
-  return "Sorry, I didn't understand.";
+  return "Something went wrong.";
 }
 
 function sendMessage() {
-  let input = document.getElementById("userInput");
-  let message = input.value;
+  let inputField = document.getElementById("userInput");
+  let message = inputField.value;
 
   if (message.trim() === "") return;
 
   let chatBox = document.getElementById("chatBox");
 
+  // user message
   let userMsg = document.createElement("div");
   userMsg.className = "user-msg";
   userMsg.innerText = message;
   chatBox.appendChild(userMsg);
 
+  // bot response
   let botMsg = document.createElement("div");
   botMsg.className = "bot-msg";
   botMsg.innerText = getResponse(message);
   chatBox.appendChild(botMsg);
 
-  input.value = "";
+  inputField.value = "";
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// load rules when page loads
 loadRules();
