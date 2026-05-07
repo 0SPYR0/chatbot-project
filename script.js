@@ -15,7 +15,7 @@ function sendMessage() {
   inputField.value = "";
 
   // 🔥 CALL BACKEND
-  fetch("http://192.168.1.12:5000/chat", {
+  fetch("http://172.23.48.1:5000/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
