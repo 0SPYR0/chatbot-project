@@ -14,7 +14,15 @@ function sendMessage() {
 
   inputField.value = "";
 
-  // 🔥 CALL BACKEND
+  // 👇 LOADING MESSAGE
+  let loadingMsg = document.createElement("div");
+  loadingMsg.className = "bot-msg";
+  loadingMsg.innerText = "Typing...";
+  chatBox.appendChild(loadingMsg);
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // call backend
   fetch("http://192.168.1.12:5001/chat", {
     method: "POST",
     headers: {
@@ -24,11 +32,9 @@ function sendMessage() {
   })
   .then(res => res.json())
   .then(data => {
-    let botMsg = document.createElement("div");
-    botMsg.className = "bot-msg";
-    botMsg.innerText = data.reply;
-    chatBox.appendChild(botMsg);
+    chatBox.removeChild(loadingMsg); // remove "Typing..."
 
-    chatBox.scrollTop = chatBox.scrollHeight;
+    // 👇 typing animation
+    typeMessage(data.reply, chatBox);
   });
 }
